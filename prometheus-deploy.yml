@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-deploy
+  labels:
+    app: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus:latest
+        args:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+        ports:
+        - containerPort: 9090
+          name: prometheus
+#        command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 10 ; done"] 
+#        command: ["/bin/sh", "-ec", "sleep 10"]
+        volumeMounts:
+        - name: prometheus-persistent-storage
+          mountPath: /prometheus/
+        - name: prom-config-volume
+          mountPath: /etc/prometheus/
+      volumes:
+      - name: prometheus-persistent-storage
+        persistentVolumeClaim:
+          claimName: prometheus-pvc-claim
+      - name: prom-config-volume
+        configMap:
+          defaultMode: 420
+          name: prom-config-conf

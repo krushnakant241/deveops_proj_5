@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+#secretGenerator:
+#- name: mysql-pass
+#  literals:
+#  - password=redhat
+resources:
+#  - mysql_deployment.yml
+#  - wordpress_deployment.yml
+   - prom-config-map.yml
+   - grafana-deploy.yml
+   - grafana-service.yml
+   - grafana-pvc-claim.yml
+   - prometheus-deploy.yml
+   - prometheus-service.yml
+   - prometheus-pvc-claim.yml
