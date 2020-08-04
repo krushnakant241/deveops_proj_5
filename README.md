@@ -11,6 +11,7 @@ Integrate Prometheus and Grafana and perform in following way:
 
 #### Step - 1 - I have used various YML files to create all resources on top of kubernetes.
 For prometheus- 1) deployment - prometheus-deploy.yml 2) service - prometheus-service.yml  4) configMap - prom-config-map.yml.
+
 For grafana-    1) deployment - grafana-deploy.yml 2) service - grafana-service.yml 3) 
 (please refer them for detail understanding)
 
